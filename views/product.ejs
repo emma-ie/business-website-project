@@ -47,7 +47,7 @@
                     <%= description %>
                 </p>
                 <p id="price">
-                    €<%= price %>
+                    <%= price %>
                 </p>
 
                 <!-- Quantity selector - code snippet originally taken from lecture notes and modified slightly -->
@@ -59,7 +59,7 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                
+
                 <!-- Add to basket button-->
                 <button onclick="addToBasket()" type="button" class="btn btn-success">Add to Basket</button>
 
@@ -79,18 +79,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
+    <script>
+        function addToBasket() {
+            let product = document.getElementById("book").innerText;
+            let quantitySelect = document.getElementById("quantity");
+            let quantity = quantitySelect.value;
+            let price = document.getElementById("price").innerText;
+            let priceQuantity = { price: price, quantity: quantity };
+            localStorage.setItem(product, JSON.stringify(priceQuantity));
+            alert("Added " + quantity + " x " + product + " to your basket." + price);
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-    function addToBasket() {
-        let product = document.getElementById("book").innerText;
-        let quantitySelect = document.getElementById("quantity");
-        let quantity = quantitySelect.value;
-        let price = document.getElementById("price").innerText;
-        let priceQuantity = {p: price, q: quantity};
-        localStorage.setItem(product, JSON.stringify(priceQuantity));
-        alert("Added " + quantity + " x " + product + " to your basket." + price);
-    }
-</script>

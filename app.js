@@ -40,7 +40,7 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
 
     if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-        res.render("index"); // render a simple success page
+        res.render("checkout"); // render a simple success page
     } else {
         res.render("failed");  // render a simple failure page
     }
@@ -126,12 +126,12 @@ app.get("/shop", function (req, res) {
     });
 });
 
-app.get("/form", function (req, res) {
+app.get("/contact", function (req, res) {
     res.render("form.ejs"); // Render form.ejs for the /form route
 }); 
 
 app.get("/checkout", function (req, res) {
-    res.render("checkout.ejs"); // Render checkout.ejs for the /checkout route
+    res.render("login.ejs"); // Render checkout.ejs for the /checkout route
 });
 
 // END ROUTES
