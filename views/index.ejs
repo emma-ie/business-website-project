@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookshop Homepage</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="/">The Book Nook</a> <!-- Brand name linking to homepage -->
+
+      <div>
+        <!-- Takes user to homepage; nav-link applies Bootstrap link styling -->
+        <a class="nav-link d-inline fs-5 me-3" href="/">Home</a>
+        <!-- Takes user to shop page; nav-link applies Bootstrap link styling -->
+        <a class="nav-link d-inline fs-5 me-3" href="/shop">Shop</a>
+        <!-- Takes user to checkout page; nav-link applies Bootstrap link styling -->
+        <a class="nav-link d-inline fs-5 me-3" href="/checkout">Checkout</a>
+        <!-- Takes user to contact page; nav-link applies Bootstrap link styling -->
+        <a class="nav-link d-inline fs-5 me-3" href="/contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <!-- End Bootstrap Navbar -->
+
+  <!-- 
+    Original Bootstrap carousel structure taken from: 
+    https://getbootstrap.com/docs/5.0/components/carousel/
+    
+    Modified to:
+    - Display a random image order on each page load
+    - Use dynamic content passed from Node.js server (firstImage and restImages)
+    - Fit the webpage better visually 
+  -->
+
+  <!-- 
+    id="carouselExampleIndicators" links indicators + controls to the carousel
+    class="carousel slide" enables Bootstrap carousel functionality
+    data-bs-ride="carousel" automatically activates the carousel on page load
+    style attribute centres the carousel and limits its max width
+  -->
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel"
+    style="max-width: 1250px; margin: auto;">
+
+    <!--
+      Carousel indicators (navigation dashes at the bottom)
+      'firstImage' represents the first slide
+      'restImages' represents the remaining slides
+    -->
+    <div class="carousel-indicators">
+
+      <!-- 
+        Indicators for the first (active) slide
+        data-bs-slide-to="0" indicates it's the first slide
+      -->
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+
+      <!-- 
+        Indicators for the remaining (inactive) slides
+        The loop goes through 'restImages' to create an indicator for each
+        data-bs-slide-to is set to i + 1 because the first slide is index 0
+      -->
+      <% for (let i=0; i < restImages.length; i++) { %>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= i + 1 %>"></button>
+        <% } %>
+    </div>
+
+    <!-- Carousel images/slides -->
+    <div class="carousel-inner">
+
+      <!--
+        First (active) slide - must be marked as 'active' for Bootstrap carousel to work correctly
+        EJS syntax (<%= %>) is used to dynamically insert the image filename - image is loaded from public/images folder
+      -->
+      <div class="carousel-item active">
+        <img src="/images/<%= firstImage %>" class="d-block w-100" style="height:850px; object-fit:cover;"
+          alt="Featured Book">
+      </div>
+
+      <!-- Loop through the remaining images and create a slide for each -->
+      <% for (let i=0; i < restImages.length; i++) { %>
+        <div class="carousel-item">
+          <img src="/images/<%= restImages[i] %>" class="d-block w-100" style="height:850px; object-fit:cover;"
+            alt="Featured Book">
+        </div>
+        <% } %>
+    </div>
+  </div>
+  <!-- End Bootstrap Carousel -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
