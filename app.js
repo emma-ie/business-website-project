@@ -127,7 +127,7 @@ app.get("/shop", function (req, res) {
 });
 
 app.get("/contact", function (req, res) {
-    res.render("form.ejs"); // Render form.ejs for the /form route
+    res.render("contact.ejs"); // Render form.ejs for the /form route
 });
 
 app.get("/checkout", function (req, res) {
