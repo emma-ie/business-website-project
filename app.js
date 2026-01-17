@@ -40,9 +40,9 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
 
     if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-        res.render("checkout"); // render a simple success page
+        res.render("checkout", { error: null }); // no error - render checkout
     } else {
-        res.render("failed");  // render a simple failure page
+        res.render("login", { error: "Invalid email or password, please try again" }); // re-render login with error
     }
 });
 
@@ -84,8 +84,8 @@ app.get('/', (req, res) => {
 });
 
 // Handle GET requests to the /login page
-app.get('/login', (req, res) => {
-    res.render('login'); // Render login.ejs for the /login route
+app.get("/login", (req, res) => {
+    res.render("login", { error: null });
 });
 
 app.get("/shop", function (req, res) {
@@ -128,10 +128,10 @@ app.get("/shop", function (req, res) {
 
 app.get("/contact", function (req, res) {
     res.render("form.ejs"); // Render form.ejs for the /form route
-}); 
+});
 
 app.get("/checkout", function (req, res) {
-    res.render("login.ejs"); // Render checkout.ejs for the /checkout route
+    res.render("login.ejs", { error: null }); // Render login.ejs for the /checkout route
 });
 
 // END ROUTES
