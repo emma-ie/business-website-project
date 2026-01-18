@@ -29,10 +29,6 @@ connection.connect((err) => {
     }
 });
 
-// Hardcoded valid credentials for demonstration purposes
-const VALID_EMAIL = "user@123.com";
-const VALID_PASSWORD = "pass";
-
 // START OF ROUTES
 
 // POST login form - route to process login data
