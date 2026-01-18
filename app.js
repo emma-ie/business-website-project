@@ -3,6 +3,7 @@ const express = require("express"); // Express framework for Node.js
 const app = express(); // Create an Express application
 const mysql = require("mysql"); // MySQL module for database interaction
 const bodyParser = require("body-parser"); // To parse form POST data
+const auth = require("./utils/auth"); // Import authentication utility functions
 
 // Middleware configuration
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
@@ -36,14 +37,16 @@ const VALID_PASSWORD = "pass";
 
 // POST login form - route to process login data
 app.post("/login", (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    // Extract email and password from the request body
+    const { email, password } = req.body;
 
-    // If credentials match, render checkout page; otherwise, re-render login with error
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-        res.render("checkout", { error: null }); // Successful login, render checkout.ejs
+    // Validate credentials using the auth module
+    if (auth.validateLogin(email, password)) {
+        // If valid, render the checkout page
+        res.render("checkout", { error: null });
     } else {
-        res.render("login", { error: "Invalid email or password, please try again" }); // Error mesage displayed
+        // If invalid, re-render login page with error message
+        res.render("login", { error: "Invalid email or password, please try again" });
     }
 });
 
