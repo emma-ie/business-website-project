@@ -36,12 +36,11 @@
 
     <div class="container">
         <h1 class="text-center">Order Summary</h1>
-        <h2>Thank you for your order, <%= name %></h2>
-        <p><strong>Delivering to:</strong> <%= address %></p>
+        <h2>Thank you for your order, <%= name %></h2> <!-- EJS template inserts customers name -->
+        <p><strong>Delivering to:</strong> <%= address %></p> <!-- EJS template inserts customers address -->
         <h3>Your order:</h3>
-        <div id="basketItems"></div>
-        <p id="totalPriceAll"></p>
-
+        <div id="basketItems"></div> <!-- Basket items displayed here -->
+        <p id="totalPriceAll"></p> <!-- Total price displayed here -->
     </div>
 
     <!-- Bootstrap JS -->
@@ -56,6 +55,7 @@
         crossorigin="anonymous"></script>
 
     <script>
+        // This script is the same as in checkout.ejs to display basket items and total price
         // Check if there are items in the basket - if empty, display message
         let hasItems = false;
         // Loop through localStorage to check for items, using hasItems as flag
@@ -66,11 +66,8 @@
                 hasItems = true;
             }
         }
-        // If no items, display message
-        if (!hasItems) {
-            document.getElementById("basketItems").innerHTML = "Your basket is empty.";
-        }
 
+        // Initialising total price variable
         let totalPriceAll = 0;
         // Script to display cart items on page; taken from week 13 content
         for (i = 0; i < localStorage.length; i++) {
@@ -84,6 +81,8 @@
             }
         }
         document.getElementById("totalPriceAll").innerHTML = "Total: €" + totalPriceAll.toFixed(2); // Display total price to 2 decimal places
+
+        // If no items in basket, display message instead
         if (!hasItems) {
             document.getElementById("basketItems").innerHTML = "Your basket is empty.";
         }

@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <!-- Bootstrap Navbar -->
+    <!-- Bootstrap Navbar (https://getbootstrap.com/docs/5.3/components/navbar/) -->
     <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
         <div class="container">
             <a class="navbar-brand" href="/">The Book Nook</a> <!-- Brand name linking to homepage -->
@@ -34,10 +34,10 @@
     </nav>
     <!-- End Bootstrap Navbar -->
 
+    <!-- Bootstrap container (https://getbootstrap.com/docs/5.3/layout/containers/) -->
     <div class="container">
         <h1 class="text-center">Checkout</h1>
-        <h3 id="basketItems"></h3>
-        <br>
+        <p id="basketItems"></p>
         <h2 id="totalPriceAll"></h2>
         <hr>
         <h3>Your details:</h3>
@@ -75,8 +75,9 @@
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
 
+    <!-- Script to display basket items on page -->
     <script>
-        // Check if there are items in the basket - if empty, display message
+        // Check if there are items in the basket
         let hasItems = false;
         // Loop through localStorage to check for items, using hasItems as flag
         for (i = 0; i < localStorage.length; i++) {
@@ -86,11 +87,8 @@
                 hasItems = true;
             }
         }
-        // If no items, display message
-        if (!hasItems) {
-            document.getElementById("basketItems").innerHTML = "Your basket is empty.";
-        }
 
+        // Initialising total price variable
         let totalPriceAll = 0;
         // Script to display cart items on page; taken from week 13 content
         for (i = 0; i < localStorage.length; i++) {
@@ -104,6 +102,8 @@
             }
         }
         document.getElementById("totalPriceAll").innerHTML = "Total: €" + totalPriceAll.toFixed(2); // Display total price to 2 decimal places
+
+        // If no items in basket, display message instead
         if (!hasItems) {
             document.getElementById("basketItems").innerHTML = "Your basket is empty.";
         }

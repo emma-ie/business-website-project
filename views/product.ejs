@@ -35,6 +35,7 @@
     </nav>
     <!-- End Bootstrap Navbar -->
 
+    <!-- Bootstrap container and styling -->
     <div class="container mt-5">
         <div class="row">
             <!-- Left column: Book image-->
@@ -44,18 +45,26 @@
 
             <!-- Right column: Book details -->
             <div class="col-md-7">
+                <!-- EJS template inserts book title from database -->
                 <h1 id="book">
                     <%= title %>
                 </h1>
+                <!-- EJS template inserts book description from database -->
                 <p>
                     <%= description %>
                 </p>
-                <p id="price">
-                    <%= price %>
-                </p>
+                <!-- Using code snippet from https://stackoverflow.com/questions/23310736/two-p-tag-in-same-line for flexbox -->
+                <!-- EJS template inserts book price from database -->
+                <div style="display: flex ">
+                    <p>€</p>
+                    <p id="price">
+                        <%= price %>
+                    </p>
+                </div>
 
-                <!-- Quantity selector - code snippet originally taken from lecture notes and modified slightly -->
-                <select id="quantity" name="quantity">
+                <!-- Quantity selector - code snippet originally taken from lecture notes and modified slightly using Bootstrap (https://getbootstrap.com/docs/5.3/forms/select/) -->
+                <label for="quantity" class="form-label">Select Quantity:</label>
+                <select class="form-select w-auto mb-1" id="quantity" name="quantity">
                     <option value="0" selected disabled>Quantity</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -63,11 +72,11 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-
-                <!-- Add to basket button-->
+                
+                <!-- Add to basket button - addToBasket() function activates -->
                 <button onclick="addToBasket()" type="button" class="btn btn-success">Add to Basket</button>
 
-                <!-- Back to shop button -->
+                <!-- Back to shop button loads /shop page -->
                 <a href="/shop" class="btn btn-primary">Back to Shop</a>
             </div>
         </div>
@@ -85,13 +94,14 @@
         crossorigin="anonymous"></script>
     <script>
         function addToBasket() {
-            let product = document.getElementById("book").innerText;
-            let quantitySelect = document.getElementById("quantity");
-            let quantity = quantitySelect.value;
-            let price = document.getElementById("price").innerText;
-            let priceQuantity = { price: price, quantity: quantity };
+            let product = document.getElementById("book").innerText; // Get book title
+            let quantitySelect = document.getElementById("quantity"); // Get quantity select element
+            let quantity = quantitySelect.value; // Get selected quantity
+            let price = document.getElementById("price").innerText; // Get book price
+            let priceQuantity = { price: price, quantity: quantity }; // Create JSON object with price and quantity
+            // Store in localStorage with book title as key and JSON string as value
             localStorage.setItem(product, JSON.stringify(priceQuantity));
-            alert("Added " + quantity + " x " + product + " to your basket." + price);
+            alert("Added " + quantity + " x " + product + " to your basket."); // Alert user of addition to basket
         }
     </script>
 </body>

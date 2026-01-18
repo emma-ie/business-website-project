@@ -1,16 +1,20 @@
+/* Applying font styles */
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2, h3 {
+/* Making headings bold */
+h1, h2, h3, h5 {
     font-weight: bold;
 }
 
+/* Styling total price display */
 #totalPriceAll {
     font-size: 1.5em;
     font-weight: bold;
 }
 
+/* Styling navbar background color */
 navbar {
     background-color: #a1a1a1;
 }

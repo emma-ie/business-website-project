@@ -33,27 +33,25 @@ const VALID_EMAIL = "user@123.com";
 const VALID_PASSWORD = "pass";
 
 // START OF ROUTES
-// Route to handle login form submission
-// POST login form
+
+// POST login form - route to process login data
 app.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
+    // If credentials match, render checkout page; otherwise, re-render login with error
     if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-        res.render("checkout", { error: null }); // no error - render checkout
+        res.render("checkout", { error: null }); // Successful login, render checkout.ejs
     } else {
-        res.render("login", { error: "Invalid email or password, please try again" }); // re-render login with error
+        res.render("login", { error: "Invalid email or password, please try again" }); // Error mesage displayed
     }
 });
 
 // Handle GET requests to the home page
 app.get('/', (req, res) => {
-
-    // An array containing filenames of images used on homepage
-    // These images are stored in the public/images folder
-    const carouselImages = ['carousel1.jpg', 'carousel2.jpg', 'carousel3.jpg', 'carousel4.jpg'];
+    // An array containing filenames of images used on homepage - images stored in /public/images
+    const carouselImages = ["carousel1.jpg", "carousel2.jpg", "carousel3.jpg", "carousel4.jpg"];
     const shuffled = (arr) => {
-
         // Create a copy of the array so the original is not modified
         const a = arr.slice();
 
@@ -66,34 +64,36 @@ app.get('/', (req, res) => {
             // Swap the elements at positions i and j
             [a[i], a[j]] = [a[j], a[i]];
         }
-
         // Return the shuffled array
         return a;
     };
 
-    // Shuffle the carouselImages array
-    // The first image will be different on each page load
+    // Shuffle the carousel images so the first slide is different on each page load
     const images = shuffled(carouselImages);
 
-    // Simplified: send the first image separately and the rest in an array
+    // Separate the first image (active image) from the rest
     const firstImage = images[0];
     const restImages = images.slice(1);
 
-    // Render the index.ejs template and pass the simplified data
-    res.render('index', { firstImage, restImages }); // Render index.ejs with first and rest images
+    // Render the homepage, passing the first image and the rest to EJS template
+    res.render("index", { firstImage, restImages });
 });
 
 // Handle GET requests to the /login page
+// Error variable is passed to the template for displaying error messages - here it is null as user has not submitted form yet
 app.get("/login", (req, res) => {
     res.render("login", { error: null });
 });
 
+// GET /shop route
 app.get("/shop", function (req, res) {
+    // Get the product ID from the query string
     const ID = req.query.rec;
 
     if (!ID) {
         // No ID = show all products
         connection.query("SELECT * FROM products", function (err, rows) {
+            // Handle any errors during the database query
             if (err) {
                 console.error("Error retrieving products:", err);
                 return res.status(500).send("Error retrieving products from database");
@@ -111,11 +111,13 @@ app.get("/shop", function (req, res) {
             console.error(`Error retrieving product ID ${ID}:`, err);
             return res.status(500).send("Error retrieving product from database");
         }
+        // If no product found with the given ID, return 404
         if (rows.length === 0) {
             console.error(`No product found for ID ${ID}`);
             return res.status(404).send(`No product found for ID ${ID}`);
         }
 
+        // Render product.ejs with the product details from the database
         const product = rows[0];
         res.render("product.ejs", {
             title: product.title,
@@ -138,11 +140,11 @@ app.get("/checkout", function (req, res) {
 
 // POST /summary route
 app.post("/summary", function (req, res) { // Render summary.ejs for the /summary route
-    res.render("summary", {
+    res.render("summary", { // Pass form data to the summary template
         name: req.body.name,
         address: req.body.address,
         payment: req.body.payment
-    }); 
+    });
 });
 
 // END ROUTES

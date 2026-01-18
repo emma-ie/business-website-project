@@ -34,12 +34,13 @@
     </nav>
     <!-- End Bootstrap Navbar -->
 
+    <!-- Bootstrap container and styling -->
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <h2 class="mb-4 text-center">Please login before checkout</h2>
 
-                <!-- Error message display (if else statement is triggered in app.js)-->
+                <!-- Error message display (if else statement is triggered in app.js) -->
                 <% if (error) { %>
                     <div class="alert alert-danger text-center">
                         <%= error %>
@@ -79,8 +80,6 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
                 integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
                 crossorigin="anonymous"></script>
-
-
 </body>
 
 </html>
