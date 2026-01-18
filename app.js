@@ -126,12 +126,23 @@ app.get("/shop", function (req, res) {
     });
 });
 
+// GET /contact route
 app.get("/contact", function (req, res) {
-    res.render("contact.ejs"); // Render form.ejs for the /form route
+    res.render("contact"); // Render form.ejs for the /form route
 });
 
+// GET /checkout route
 app.get("/checkout", function (req, res) {
-    res.render("login.ejs", { error: null }); // Render login.ejs for the /checkout route
+    res.render("login", { error: null }); // Render login.ejs for the /checkout route
+});
+
+// POST /summary route
+app.post("/summary", function (req, res) { // Render summary.ejs for the /summary route
+    res.render("summary", {
+        name: req.body.name,
+        address: req.body.address,
+        payment: req.body.payment
+    }); 
 });
 
 // END ROUTES

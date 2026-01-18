@@ -35,33 +35,13 @@
     <!-- End Bootstrap Navbar -->
 
     <div class="container">
-        <h1 class="text-center">Checkout</h1>
-        <h3 id="basketItems"></h3>
-        <br>
-        <h2 id="totalPriceAll"></h2>
-        <hr>
-        <h3>Your details:</h3>
-        <!-- Using Bootstrap form elements (https://getbootstrap.com/docs/5.3/forms/overview/) for styling -->
-        <form action="/summary" method="POST">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Address:</label>
-                <textarea class="form-control" id="address" name="address" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="payment">Payment Method:</label>
-                <select class="form-select" id="payment" name="payment" required>
-                    <option value="" disabled selected>Please select</option>
-                    <option value="credit-card">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="bank-transfer">Bank Transfer</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Place Order</button>
-        </form>
+        <h1 class="text-center">Order Summary</h1>
+        <h2>Thank you for your order, <%= name %></h2>
+        <p><strong>Delivering to:</strong> <%= address %></p>
+        <h3>Your order:</h3>
+        <div id="basketItems"></div>
+        <p id="totalPriceAll"></p>
+
     </div>
 
     <!-- Bootstrap JS -->
