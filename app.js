@@ -1,30 +1,30 @@
 // Import required modules
 const express = require("express"); // Express framework for Node.js
 const app = express(); // Create an Express application
-const mysql = require('mysql'); // MySQL module for database interaction
+const mysql = require("mysql"); // MySQL module for database interaction
 const bodyParser = require("body-parser"); // To parse form POST data
 
 // Middleware configuration
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(express.static('public')); // Serve static files from 'public' directory
+app.use(express.static("public")); // Serve static files from "public" directory
 
 // Set view engine
 app.set("view engine", "ejs"); // Use EJS templates instead of plain HTML
 
 // Configure MySQL database connection
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'g00474347'
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "g00474347"
 });
 
 // Establish connection with the database
 connection.connect((err) => {
     if (err) {
-        console.error('Error connecting to database: ', err);
+        console.error("Error connecting to database: ", err);
     } else {
-        console.log('Connected to database!');
+        console.log("Connected to database!");
     }
 });
 
@@ -48,7 +48,7 @@ app.post("/login", (req, res) => {
 });
 
 // Handle GET requests to the home page
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     // An array containing filenames of images used on homepage - images stored in /public/images
     const carouselImages = ["carousel1.jpg", "carousel2.jpg", "carousel3.jpg", "carousel4.jpg"];
     const shuffled = (arr) => {
@@ -151,5 +151,5 @@ app.post("/summary", function (req, res) { // Render summary.ejs for the /summar
 
 // Start the server and listen on port 3000
 app.listen(3000, () => {
-    console.log('Server started on port 3000'); // Log message when server starts successfully
+    console.log("Server started on port 3000"); // Log message when server starts successfully
 });
